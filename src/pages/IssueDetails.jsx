@@ -26,10 +26,49 @@ function getRecommendation(score) {
   };
 }
 
+function getScoreBadgeClass(score) {
+  if (score >= 8) return 'text-emerald-300 bg-emerald-500/15 border-emerald-500/30';
+  if (score >= 5) return 'text-amber-300 bg-amber-500/15 border-amber-500/30';
+  return 'text-rose-300 bg-rose-500/15 border-rose-500/30';
+}
+
+function getDifficultyLevel(score) {
+  if (score >= 8) return 'Easy';
+  if (score >= 5) return 'Medium';
+  return 'Hard';
+}
+
+function getActivitySummary(updatedAt) {
+  if (!updatedAt) {
+    return 'Recent activity is unknown.';
+  }
+
+  const daysSinceUpdate = Math.floor(
+    (Date.now() - new Date(updatedAt).getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  if (daysSinceUpdate <= 7) {
+    return 'Very active repo (updated within the last week).';
+  }
+  if (daysSinceUpdate <= 30) {
+    return 'Active repo (updated within the last month).';
+  }
+  return 'Less recent activity (updated over a month ago).';
+}
+
 export default function IssueDetails() {
   const { state } = useLocation();
   const issue = state?.issue;
   const [checkedSteps, setCheckedSteps] = useState([]);
+  const [checkedChecklistItems, setCheckedChecklistItems] = useState([]);
+
+  const firstPrChecklist = [
+    'Read README',
+    'Understand the issue',
+    'Created a new branch',
+    'Tested changes',
+    'Small and clear PR',
+  ];
 
   const toggleStep = (id) => {
     if (checkedSteps.includes(id)) {
@@ -39,16 +78,26 @@ export default function IssueDetails() {
     }
   };
 
+  const toggleChecklistItem = (item) => {
+    if (checkedChecklistItems.includes(item)) {
+      setCheckedChecklistItems(
+        checkedChecklistItems.filter((checkItem) => checkItem !== item)
+      );
+    } else {
+      setCheckedChecklistItems([...checkedChecklistItems, item]);
+    }
+  };
+
   if (!issue) {
     return (
-      <div className="max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl p-8 text-center shadow-sm">
-        <h1 className="text-2xl font-bold text-slate-900 mb-3">Issue not found</h1>
-        <p className="text-slate-600 mb-6">
+      <div className="max-w-3xl mx-auto bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center shadow-xl">
+        <h1 className="text-2xl font-bold text-foreground mb-3">Issue not found</h1>
+        <p className="text-muted-foreground mb-6">
           Please go back to Explore and choose an issue again.
         </p>
         <Link
           to="/explore"
-          className="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition-colors"
+          className="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
         >
           Back to Explore
         </Link>
@@ -58,30 +107,77 @@ export default function IssueDetails() {
 
   const recommendation = getRecommendation(issue.beginnerScore);
   const repoUrl = `https://github.com/${issue.repoName}`;
+  const hasGoodFirstIssueLabel = (issue.labels || [])
+    .some((label) => label.toLowerCase() === 'good first issue');
+  const difficultyLevel = getDifficultyLevel(issue.beginnerScore);
+  const repoActivitySummary = getActivitySummary(issue.updatedAt);
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <section className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm mb-6">
-        <h1 className="text-3xl font-extrabold text-slate-900 mb-4">Issue Details</h1>
-        <div className="space-y-3 text-slate-700">
+      <section className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-xl mb-6">
+        <h1 className="text-3xl font-extrabold text-foreground mb-4">Issue Details</h1>
+        <div className="space-y-3 text-slate-200">
           <p>
-            <span className="font-semibold text-slate-900">Title:</span> {issue.issueTitle}
+            <span className="font-semibold text-slate-100">Title:</span> {issue.issueTitle}
           </p>
           <p>
-            <span className="font-semibold text-slate-900">Repository:</span> {issue.repoName}
+            <span className="font-semibold text-slate-100">Repository:</span> {issue.repoName}
           </p>
-          <p>
-            <span className="font-semibold text-slate-900">Beginner Score:</span>{' '}
-            {issue.beginnerScore}/10
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-100">Beginner Score:</span>
+            <span
+              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-bold ${getScoreBadgeClass(issue.beginnerScore)}`}
+            >
+              {issue.beginnerScore}/10
+            </span>
+          </div>
         </div>
       </section>
 
-      <section className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm mb-6">
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Should You Pick This Issue?</h2>
+      <section className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-xl mb-6">
+        <h2 className="text-2xl font-bold text-white mb-4">Should You Pick This Issue?</h2>
         <div className={`rounded-xl border px-4 py-4 ${recommendation.color}`}>
           <p className="font-bold mb-1">{recommendation.heading}</p>
           <p>{recommendation.text}</p>
+        </div>
+      </section>
+
+      <section className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-xl mb-6">
+        <h2 className="text-2xl font-bold text-white mb-2">
+          Why this issue is good for you
+        </h2>
+        <p className="text-slate-400 mb-5">
+          A quick beginner-friendly explanation before you start coding.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400 mb-1">Beginner score</p>
+            <p className="text-slate-100 text-sm">
+              This issue has a score of <span className="font-semibold">{issue.beginnerScore}/10</span>. Higher scores usually mean easier first contributions.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400 mb-1">Good first issue label</p>
+            <p className="text-slate-100 text-sm">
+              {hasGoodFirstIssueLabel
+                ? 'Yes, this issue has a "good first issue" label, which is great for beginners.'
+                : 'This issue does not show a "good first issue" label right now, but you can still contribute if it looks manageable.'}
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400 mb-1">Repository activity</p>
+            <p className="text-slate-100 text-sm">{repoActivitySummary}</p>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400 mb-1">Difficulty level</p>
+            <p className="text-slate-100 text-sm">
+              This issue is marked as <span className="font-semibold">{difficultyLevel}</span> based on your beginner score.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -162,6 +258,44 @@ export default function IssueDetails() {
         )}
       </section>
 
+      <section className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-xl mb-6">
+        <h2 className="text-2xl font-bold text-white mb-2">First PR Checklist</h2>
+        <p className="text-slate-400 mb-5">
+          Use this quick checklist before you open your pull request.
+        </p>
+
+        <div className="space-y-3">
+          {firstPrChecklist.map((item) => {
+            const isChecked = checkedChecklistItems.includes(item);
+
+            return (
+              <label
+                key={item}
+                className={`flex items-center gap-3 rounded-xl border px-4 py-3 cursor-pointer transition-colors ${
+                  isChecked
+                    ? 'border-primary/40 bg-primary/10'
+                    : 'border-white/10 bg-white/5 hover:bg-white/10'
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => toggleChecklistItem(item)}
+                  className="h-4 w-4 rounded border-slate-500 bg-transparent text-primary focus:ring-primary/60"
+                />
+                <span
+                  className={`text-sm md:text-base ${
+                    isChecked ? 'text-primary' : 'text-slate-200'
+                  }`}
+                >
+                  {item}
+                </span>
+              </label>
+            );
+          })}
+        </div>
+      </section>
+
       <section className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-xl mb-8">
         <h2 className="text-2xl font-bold text-white mb-4">Pro Tips</h2>
         <ul className="space-y-4 text-slate-300">
@@ -191,7 +325,7 @@ export default function IssueDetails() {
           href={issue.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold bg-slate-900 text-white hover:bg-slate-800 transition-colors"
+          className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold bg-linear-to-r from-primary to-accent text-white shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
         >
           Open Issue on GitHub
           <ExternalLink className="w-4 h-4" />
@@ -200,7 +334,7 @@ export default function IssueDetails() {
           href={repoUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
+          className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold border border-white/20 bg-white/5 text-slate-200 hover:bg-white/10 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
         >
           View Repository
           <ExternalLink className="w-4 h-4" />

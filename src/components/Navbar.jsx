@@ -1,14 +1,19 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Terminal } from 'lucide-react';
+import { GITHUB_REPO_URL } from '../config/site';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-2xl border-b border-border shadow-md transition-all">
@@ -59,8 +64,8 @@ export default function Navbar() {
 
           {/* Action button */}
           <div className="hidden md:flex items-center">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="px-5 py-2.5 text-sm font-semibold text-foreground bg-muted border border-border hover:bg-accent hover:text-accent-foreground rounded-full transition-all hover:scale-105 active:scale-95 shadow-sm">
-              Star on GitHub
+            <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer" className="px-5 py-2.5 text-sm font-semibold text-foreground bg-muted border border-border hover:bg-accent hover:text-accent-foreground rounded-full transition-all hover:scale-105 active:scale-95 shadow-sm">
+              Start on GitHub
             </a>
           </div>
 
@@ -69,7 +74,8 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
-              aria-expanded="false"
+              aria-expanded={isOpen}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
               <span className="sr-only">Open main menu</span>
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -107,8 +113,13 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="pt-4">
-                <a href="https://github.com" className="w-full flex justify-center py-3 text-sm font-semibold text-white bg-white/10 rounded-2xl border border-white/5 active:bg-white/20">
-                  Star on GitHub
+                <a
+                  href={GITHUB_REPO_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full flex justify-center py-3 text-sm font-semibold text-white bg-white/10 rounded-2xl border border-white/5 active:bg-white/20"
+                >
+                  Start on GitHub
                 </a>
               </div>
             </div>
