@@ -253,43 +253,68 @@ export default function Explore() {
         </motion.div>
 
         {!loading && !error && todaysBestIssue && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mb-10 md:mb-12 rounded-4xl border border-primary/30 bg-linear-to-b from-primary/10 to-transparent p-8 md:p-12 shadow-[0_0_40px_rgba(124,137,255,0.15)] relative overflow-hidden flex flex-col items-center text-center"
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
-            
-            <div className="relative z-10 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/20 border border-primary/30 mb-6 shadow-sm">
-              <span className="text-sm font-bold uppercase tracking-[0.2em] text-primary">⭐ Best for You</span>
-            </div>
-            
-            <div className="relative z-10 max-w-3xl flex flex-col items-center">
-              <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-4 leading-tight">
-                {todaysBestIssue.issueTitle}
-              </h2>
-              <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed">
-                {todaysBestIssue.shortDescription}
-              </p>
-              
-              <div className="flex flex-wrap items-center justify-center gap-4">
-                <div className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl border border-emerald-400/30 bg-emerald-500/15 text-emerald-300 text-sm font-bold shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                  Beginner Score: {todaysBestIssue.beginnerScore}/10
+          <div className="mb-14 md:mb-16 w-full max-w-5xl mx-auto flex flex-col items-center">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-6 self-start md:self-center">
+              ⭐ Best Issue For You Today
+            </h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="w-full relative group"
+            >
+              <div className="absolute -inset-0.5 bg-linear-to-r from-primary via-fuchsia-500 to-cyan-400 rounded-4xl blur-md opacity-40 group-hover:opacity-75 transition duration-500"></div>
+              <div className="relative w-full rounded-4xl bg-[#0f111a]/90 backdrop-blur-xl border border-white/10 p-8 md:p-10 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-10 text-left">
+                
+                <div className="flex-1 space-y-4 w-full">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <span className="inline-flex items-center px-3 tracking-wide py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-[10px] sm:text-xs font-bold uppercase">
+                      Recommended
+                    </span>
+                    <span className="text-cyan-300/90 text-sm font-medium">
+                      Perfect for your first contribution
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground transition-colors group-hover:text-primary">
+                    {todaysBestIssue.issueTitle}
+                  </h3>
+
+                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed line-clamp-3">
+                    {todaysBestIssue.shortDescription}
+                  </p>
+                  
+                  <div className="flex flex-wrap items-center gap-2 pt-2">
+                    {todaysBestIssue.labels?.slice(0, 4).map((label) => (
+                      <span key={label} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-foreground/80 font-medium whitespace-nowrap">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() =>
-                    navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
-                  }
-                  className="inline-flex items-center justify-center rounded-2xl px-8 py-3.5 text-base font-bold bg-linear-to-r from-primary to-accent text-primary-foreground shadow-xl shadow-primary/25 hover:shadow-[0_0_25px_rgba(124,137,255,0.45)] hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98] transition-all duration-200 ease-in-out"
-                >
-                  Start Contributing
-                </button>
+                <div className="shrink-0 flex flex-col items-center md:items-end w-full md:w-auto gap-5 self-center justify-center md:border-l md:border-white/10 md:pl-10 relative z-10">
+                   <div className="text-center xl:text-right bg-emerald-500/10 border border-emerald-500/20 px-6 py-4 rounded-2xl w-full">
+                     <p className="text-4xl font-black text-emerald-400">
+                       {todaysBestIssue.beginnerScore}<span className="text-2xl text-emerald-400/50">/10</span>
+                     </p>
+                     <p className="text-[11px] text-emerald-400/80 font-bold uppercase tracking-widest mt-1">Beginner Score</p>
+                   </div>
+                   
+                   <button
+                    type="button"
+                    onClick={() =>
+                      navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
+                    }
+                    className="w-full inline-flex items-center justify-center rounded-xl px-6 py-4 text-sm font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+                  >
+                    Start Contributing
+                  </button>
+                </div>
+
               </div>
-            </div>
-          </motion.section>
+            </motion.div>
+          </div>
         )}
 
         {/* State Management */}
@@ -387,27 +412,40 @@ export default function Explore() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-20"
+                className="pb-20"
               >
-                {displayedIssues.map((issue, index) => (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    key={issue.id} 
-                    className="block group h-full"
-                  >
-                    <IssueCard
-                      repoName={issue.repoName}
-                      issueTitle={issue.issueTitle}
-                      beginnerScore={issue.beginnerScore}
-                      labels={issue.labels}
-                      onStartContributing={() =>
-                        navigate(`/issue/${issue.id}`, { state: { issue } })
-                      }
-                    />
-                  </motion.div>
-                ))}
+                <div className="flex items-center justify-center mb-8">
+                  <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 shadow-inner backdrop-blur-sm">
+                    <span className="text-lg">💡</span>
+                    <span className="text-sm font-medium">
+                      {selectedSkills.length > 0
+                        ? "Based on your selected skills, we recommend these issues"
+                        : "Here are some beginner-friendly issues to get started"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                  {displayedIssues.map((issue, index) => (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      key={issue.id} 
+                      className="block group h-full"
+                    >
+                      <IssueCard
+                        repoName={issue.repoName}
+                        issueTitle={issue.issueTitle}
+                        beginnerScore={issue.beginnerScore}
+                        labels={issue.labels}
+                        onStartContributing={() =>
+                          navigate(`/issue/${issue.id}`, { state: { issue } })
+                        }
+                      />
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

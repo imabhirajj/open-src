@@ -82,13 +82,13 @@ export default function IssueCard({
     <motion.div 
       whileHover={{ y: -6, scale: 1.02 }}
       transition={{ duration: 0.2, ease: "easeInOut" }}
-      className="bg-[#0a0f1d] rounded-3xl shadow-xl border border-white/10 hover:border-indigo-500/50 hover:shadow-[0_15px_40px_-10px_rgba(124,137,255,0.15)] p-5 md:p-6 flex flex-col justify-between transition-all duration-200 ease-in-out group h-full relative overflow-hidden"
+      className="bg-[#0a0f1d] rounded-3xl shadow-xl border border-white/10 hover:border-primary/50 hover:shadow-[0_15px_40px_-10px_rgba(124,137,255,0.25)] p-6 md:p-8 flex flex-col justify-between transition-all duration-200 ease-in-out group h-full relative overflow-hidden"
     >
       {/* Glow on hover */}
-      <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-full blur-[60px] -mr-10 -mt-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="absolute top-0 right-0 w-48 h-48 bg-primary/15 rounded-full blur-[60px] -mr-10 -mt-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       
       <div className="relative z-10 flex flex-col h-full">
-        <div className="flex justify-between items-start mb-5 gap-3">
+        <div className="flex justify-between items-start mb-6 gap-3">
           <div className="flex flex-wrap items-center gap-2 max-w-[68%]">
             <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full border border-white/10 shrink overflow-hidden text-ellipsis">
               <GitPullRequest className="w-3.5 h-3.5 text-slate-400 shrink-0" />
@@ -106,11 +106,11 @@ export default function IssueCard({
           </div>
         </div>
         
-        <h3 className="text-lg md:text-xl font-bold text-white leading-snug mb-6 group-hover:text-indigo-400 transition-colors line-clamp-3">
+        <h3 className="text-lg md:text-xl font-bold text-white leading-snug mb-6 group-hover:text-primary transition-colors line-clamp-3">
           {issueTitle}
         </h3>
 
-        <div className="mb-5 flex flex-wrap gap-2">
+        <div className="mb-6 flex flex-wrap gap-2">
           {issueTags.map((tag) => (
             <span
               key={tag}
@@ -121,16 +121,16 @@ export default function IssueCard({
           ))}
         </div>
         
-        <div className="mt-auto flex flex-col gap-4">
+        <div className="mt-auto flex flex-col gap-5">
           <div className="flex items-center gap-1.5 text-xs font-medium text-slate-300">
             {getHelperTextInfo(beginnerScore).icon}
             {getHelperTextInfo(beginnerScore).text}
           </div>
-          <div className="pt-4 border-t border-white/10 flex gap-3">
+          <div className="pt-5 border-t border-white/10 flex gap-3">
             <button
               type="button"
               onClick={onStartContributing}
-              className="w-full flex items-center justify-center gap-2 bg-linear-to-r from-primary to-accent text-white text-sm md:text-base font-semibold shrink-0 py-3 px-4 rounded-xl transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-lg shadow-primary/25 hover:shadow-[0_0_20px_rgba(124,137,255,0.4)] hover:-translate-y-0.5 active:scale-[0.98]"
+              className="w-full flex items-center justify-center gap-2 bg-linear-to-r from-primary to-accent text-white text-sm md:text-base font-bold shrink-0 py-3.5 px-4 rounded-xl transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-lg shadow-primary/25 hover:shadow-[0_0_25px_rgba(124,137,255,0.45)] hover:-translate-y-0.5 active:scale-[0.98]"
             >
               Start Contributing
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

@@ -105,7 +105,7 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className={`block px-4 py-3 rounded-2xl text-base font-medium transition-colors ${
                     isActive(item.path) 
-                      ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' 
+                      ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_10px_-2px_rgba(124,137,255,0.15)]' 
                       : 'text-slate-400 hover:bg-white/5 hover:text-white'
                   }`}
                 >

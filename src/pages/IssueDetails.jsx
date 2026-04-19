@@ -146,38 +146,48 @@ export default function IssueDetails() {
         <h2 className="text-2xl font-bold text-white mb-2">
           Why this issue is good for you
         </h2>
-        <p className="text-slate-400 mb-5">
+        <p className="text-slate-400 mb-6">
           A quick beginner-friendly explanation before you start coding.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400 mb-1">Beginner score</p>
-            <p className="text-slate-100 text-sm">
-              This issue has a score of <span className="font-semibold">{issue.beginnerScore}/10</span>. Higher scores usually mean easier first contributions.
-            </p>
-          </div>
+        <div className="rounded-xl border border-white/10 bg-white/5 p-6 md:p-8">
+          <ul className="space-y-5">
+            <li className="flex items-start gap-4">
+              <div className="w-2 h-2 rounded-full bg-primary mt-2.5 shrink-0 shadow-[0_0_8px_rgba(124,137,255,0.8)]"></div>
+              <div>
+                <span className="font-bold text-slate-100 text-base block mb-0.5">Beginner-friendly issue</span>
+                <span className="text-sm text-slate-400 leading-relaxed">With a beginner score of {issue.beginnerScore}/10, this issue has a manageable {difficultyLevel.toLowerCase()} difficulty.</span>
+              </div>
+            </li>
+            
+            <li className="flex items-start gap-4">
+              <div className="w-2 h-2 rounded-full bg-primary mt-2.5 shrink-0 shadow-[0_0_8px_rgba(124,137,255,0.8)]"></div>
+              <div>
+                <span className="font-bold text-slate-100 text-base block mb-0.5">Small change required</span>
+                <span className="text-sm text-slate-400 leading-relaxed">Perfect for getting familiar with the codebase and mastering the PR workflow without getting overwhelmed.</span>
+              </div>
+            </li>
 
-          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400 mb-1">Good first issue label</p>
-            <p className="text-slate-100 text-sm">
-              {hasGoodFirstIssueLabel
-                ? 'Yes, this issue has a "good first issue" label, which is great for beginners.'
-                : 'This issue does not show a "good first issue" label right now, but you can still contribute if it looks manageable.'}
-            </p>
-          </div>
+            <li className="flex items-start gap-4">
+              <div className="w-2 h-2 rounded-full bg-primary mt-2.5 shrink-0 shadow-[0_0_8px_rgba(124,137,255,0.8)]"></div>
+              <div>
+                <span className="font-bold text-slate-100 text-base block mb-0.5">Active repository</span>
+                <span className="text-sm text-slate-400 leading-relaxed">{repoActivitySummary} This means maintainers are likely around to review your PR.</span>
+              </div>
+            </li>
 
-          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400 mb-1">Repository activity</p>
-            <p className="text-slate-100 text-sm">{repoActivitySummary}</p>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400 mb-1">Difficulty level</p>
-            <p className="text-slate-100 text-sm">
-              This issue is marked as <span className="font-semibold">{difficultyLevel}</span> based on your beginner score.
-            </p>
-          </div>
+            <li className="flex items-start gap-4">
+              <div className="w-2 h-2 rounded-full bg-primary mt-2.5 shrink-0 shadow-[0_0_8px_rgba(124,137,255,0.8)]"></div>
+              <div>
+                <span className="font-bold text-slate-100 text-base block mb-0.5">Has 'good-first-issue' label</span>
+                <span className="text-sm text-slate-400 leading-relaxed">
+                  {hasGoodFirstIssueLabel
+                    ? 'Yes, this issue is officially flagged by maintainers as an excellent starting point for newcomers.'
+                    : 'While not explicitly labeled "good first issue", its metadata suggests it is appropriate for beginners to tackle.'}
+                </span>
+              </div>
+            </li>
+          </ul>
         </div>
       </section>
 

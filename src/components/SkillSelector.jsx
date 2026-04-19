@@ -14,13 +14,13 @@ export default function SkillSelector({ selectedSkills = [], onSkillChange }) {
   };
 
   return (
-    <div className="w-full p-8 bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/10 my-6 relative overflow-hidden group">
+    <div className="w-full p-8 md:p-10 bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/10 my-8 relative overflow-hidden group">
       {/* Decorative hover glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-indigo-500/20 transition-colors duration-700"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-primary/20 transition-colors duration-700"></div>
 
       <div className="relative z-10">
         <h2 className="text-2xl font-bold mb-8 text-white flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center shadow-inner border border-indigo-500/30">
+          <div className="w-10 h-10 rounded-xl bg-primary/20 text-primary flex items-center justify-center shadow-inner border border-primary/30">
             <Target className="w-5 h-5" />
           </div>
           Select a Skill
@@ -37,10 +37,10 @@ export default function SkillSelector({ selectedSkills = [], onSkillChange }) {
                 whileTap={{ scale: 0.95 }}
                 key={skill}
                 onClick={() => handleSkillClick(skill)}
-                className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                className={`px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
                   isSelected 
-                    ? 'bg-indigo-600 text-white shadow-[0_0_20px_-5px_rgba(79,70,229,0.5)] border border-indigo-500' 
-                    : 'bg-white/5 text-slate-300 border border-white/10 hover:border-indigo-400/50 hover:bg-white/10'
+                    ? 'bg-primary text-primary-foreground shadow-[0_0_20px_-5px_rgba(124,137,255,0.5)] border border-primary/80' 
+                    : 'bg-white/5 text-slate-300 border border-white/10 hover:border-primary/50 hover:bg-white/10 hover:shadow-[0_0_15px_-5px_rgba(124,137,255,0.3)]'
                 }`}
               >
                 {skill}
@@ -61,7 +61,7 @@ export default function SkillSelector({ selectedSkills = [], onSkillChange }) {
               {selectedSkills.map((skill) => (
                 <span 
                   key={`preview-${skill}`} 
-                  className="inline-flex items-center px-3 py-1 rounded-lg text-sm font-medium bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 backdrop-blur-sm"
+                  className="inline-flex items-center px-4 py-1.5 rounded-lg text-sm font-medium bg-primary/20 text-primary border border-primary/30 backdrop-blur-sm shadow-[0_0_10px_-2px_rgba(124,137,255,0.2)]"
                 >
                   {skill}
                 </span>
