@@ -260,9 +260,14 @@ export default function Explore() {
 
         {!loading && !error && todaysBestIssue && (
           <div className="mb-14 md:mb-16 w-full max-w-5xl mx-auto flex flex-col items-center">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-6 self-start md:self-center">
-              ⭐ Best Issue For You Today
-            </h2>
+            <div className="flex flex-col items-center mb-6 text-center">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-2">
+                Start here: We picked the easiest issue for you
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground font-medium flex items-center justify-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> No experience needed. Just follow the steps.
+              </p>
+            </div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -307,15 +312,20 @@ export default function Explore() {
                      <p className="text-[11px] text-emerald-400/80 font-bold uppercase tracking-widest mt-1">Beginner Score</p>
                    </div>
                    
-                   <button
-                    type="button"
-                    onClick={() =>
-                      navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
-                    }
-                    className="w-full inline-flex items-center justify-center rounded-xl px-6 py-4 text-sm font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
-                  >
-                    Start with this issue
-                  </button>
+                   <div className="w-full flex flex-col gap-3">
+                     <button
+                      type="button"
+                      onClick={() =>
+                        navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
+                      }
+                      className="w-full inline-flex items-center justify-center rounded-xl px-6 py-4 text-sm font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+                    >
+                      Start With This Issue 🚀
+                    </button>
+                    <p className="text-[11px] text-muted-foreground/80 font-medium text-center uppercase tracking-wider">
+                      Used by beginners to make their first PR
+                    </p>
+                   </div>
                 </div>
 
               </div>
