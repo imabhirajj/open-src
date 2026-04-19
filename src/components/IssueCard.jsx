@@ -23,8 +23,8 @@ export default function IssueCard({
   };
 
   const getHelperTextInfo = (score) => {
-    if (score >= 8) return { text: "Good for your first PR", icon: <Sparkles className="w-3.5 h-3.5 text-emerald-400" /> };
-    if (score >= 5) return { text: "Great intermediate task", icon: <Lightbulb className="w-3.5 h-3.5 text-amber-400" /> };
+    if (score >= 8) return { text: "Recommended for your first contribution", icon: <Sparkles className="w-3.5 h-3.5 text-emerald-400" /> };
+    if (score >= 5) return { text: "Takes less than 20 minutes", icon: <Lightbulb className="w-3.5 h-3.5 text-amber-400" /> };
     return { text: "For experienced contributors", icon: <Zap className="w-3.5 h-3.5 text-rose-400" /> };
   };
 
@@ -85,7 +85,7 @@ export default function IssueCard({
       className="bg-[#0a0f1d] rounded-3xl shadow-xl border border-white/10 hover:border-primary/50 hover:shadow-[0_15px_40px_-10px_rgba(124,137,255,0.25)] p-6 md:p-8 flex flex-col justify-between transition-all duration-200 ease-in-out group h-full relative overflow-hidden"
     >
       {/* Glow on hover */}
-      <div className="absolute top-0 right-0 w-48 h-48 bg-primary/15 rounded-full blur-[60px] -mr-10 -mt-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="absolute top-0 right-0 w-48 h-48 bg-primary/15 rounded-full blur-[60px] -mr-10 -mt-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
       
       <div className="relative z-10 flex flex-col h-full">
         <div className="flex justify-between items-start mb-6 gap-3">
@@ -130,7 +130,7 @@ export default function IssueCard({
             <button
               type="button"
               onClick={onStartContributing}
-              className="w-full flex items-center justify-center gap-2 bg-linear-to-r from-primary to-accent text-white text-sm md:text-base font-bold shrink-0 py-3.5 px-4 rounded-xl transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-lg shadow-primary/25 hover:shadow-[0_0_25px_rgba(124,137,255,0.45)] hover:-translate-y-0.5 active:scale-[0.98]"
+              className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground text-sm md:text-base font-bold shrink-0 py-3.5 px-4 rounded-xl transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary/50 shadow-lg shadow-primary/25 hover:shadow-[0_0_25px_rgba(124,137,255,0.45)] hover:-translate-y-0.5 active:scale-[0.98]"
             >
               Start Contributing
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

@@ -42,11 +42,11 @@ export default function Home() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-md mb-8"
             >
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-xs sm:text-sm font-medium text-slate-300 tracking-wide">
-                Welcome to Open Source Navigator
+              <span className="text-lg">🎯</span>
+              <span className="text-xs sm:text-sm font-bold text-emerald-400 tracking-wide uppercase">
+                Your goal today: Make your first PR
               </span>
             </motion.div>
 
@@ -63,19 +63,24 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl font-medium text-foreground/90 max-w-2xl leading-relaxed mb-3"
+              className="text-xl md:text-2xl font-medium text-foreground/90 max-w-2xl leading-relaxed mb-4"
             >
               Find your first open source issue in under 2 minutes.
             </motion.p>
             
-            <motion.p
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed mb-10"
+              className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-sm sm:text-base text-muted-foreground font-medium mb-10"
             >
-              No experience needed. We guide you step-by-step.
-            </motion.p>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                <span className="text-emerald-400 font-bold">✓</span> No experience needed
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
+                <span className="text-emerald-400 font-bold">✓</span> Start with small contributions
+              </div>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -154,31 +159,31 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-200 ease-in-out hover:-translate-y-1.5 hover:scale-[1.02]">
-              <div className="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-4">
+            <article className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-sm hover:shadow-[0_0_20px_rgba(124,137,255,0.15)] hover:border-primary/40 transition-all duration-200 ease-in-out hover:-translate-y-1.5">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 border border-primary/20 group-hover:scale-110 transition-transform">
                 <Code2 className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-bold text-foreground mb-2">Select Your Skill</h3>
+              <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Select Your Skill</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Choose the technology you know best to get tailored issue recommendations.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-200 ease-in-out hover:-translate-y-1.5 hover:scale-[1.02]">
-              <div className="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-4">
+            <article className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-sm hover:shadow-[0_0_20px_rgba(124,137,255,0.15)] hover:border-primary/40 transition-all duration-200 ease-in-out hover:-translate-y-1.5">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 border border-primary/20 group-hover:scale-110 transition-transform">
                 <SearchCheck className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-bold text-foreground mb-2">Explore Beginner-Friendly Issues</h3>
+              <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Explore Beginner-Friendly Issues</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Browse curated issues with scores to quickly find approachable tasks.
               </p>
             </article>
 
-            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-200 ease-in-out hover:-translate-y-1.5 hover:scale-[1.02]">
-              <div className="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-4">
+            <article className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-sm hover:shadow-[0_0_20px_rgba(124,137,255,0.15)] hover:border-primary/40 transition-all duration-200 ease-in-out hover:-translate-y-1.5">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6 border border-primary/20 group-hover:scale-110 transition-transform">
                 <GitPullRequest className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-bold text-foreground mb-2">Make Your First Pull Request</h3>
+              <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">Make Your First Pull Request</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Follow the guidance, push your fix, and open your first PR with confidence.
               </p>

@@ -16,7 +16,7 @@ export default function SkillSelector({ selectedSkills = [], onSkillChange }) {
   return (
     <div className="w-full p-8 md:p-10 bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/10 my-8 relative overflow-hidden group">
       {/* Decorative hover glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-primary/20 transition-colors duration-700"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] -mr-20 -mt-20 group-hover:bg-primary/20 transition-colors duration-200"></div>
 
       <div className="relative z-10">
         <h2 className="text-2xl font-bold mb-8 text-white flex items-center gap-3">
@@ -37,7 +37,7 @@ export default function SkillSelector({ selectedSkills = [], onSkillChange }) {
                 whileTap={{ scale: 0.95 }}
                 key={skill}
                 onClick={() => handleSkillClick(skill)}
-                className={`px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                className={`px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
                   isSelected 
                     ? 'bg-primary text-primary-foreground shadow-[0_0_20px_-5px_rgba(124,137,255,0.5)] border border-primary/80' 
                     : 'bg-white/5 text-slate-300 border border-white/10 hover:border-primary/50 hover:bg-white/10 hover:shadow-[0_0_15px_-5px_rgba(124,137,255,0.3)]'

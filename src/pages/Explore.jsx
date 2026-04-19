@@ -195,10 +195,16 @@ export default function Explore() {
             <SearchComponent />
           </div>
           
-          <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto font-medium">
+          <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto font-medium mb-8">
             Browse through curated open-source issues that match your skills. 
             Pick a card to jumpstart your contribution journey.
           </p>
+
+          <div className="flex justify-center -mt-2">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 text-sm font-bold shadow-sm backdrop-blur-sm">
+              🎯 Your goal today: Make your first PR
+            </div>
+          </div>
         </motion.div>
 
         {/* Skill Selector */}
@@ -263,7 +269,7 @@ export default function Explore() {
               transition={{ delay: 0.2 }}
               className="w-full relative group"
             >
-              <div className="absolute -inset-0.5 bg-linear-to-r from-primary via-fuchsia-500 to-cyan-400 rounded-4xl blur-md opacity-40 group-hover:opacity-75 transition duration-500"></div>
+              <div className="absolute -inset-0.5 bg-linear-to-r from-primary via-fuchsia-500 to-cyan-400 rounded-4xl blur-md opacity-40 group-hover:opacity-75 transition duration-200"></div>
               <div className="relative w-full rounded-4xl bg-[#0f111a]/90 backdrop-blur-xl border border-white/10 p-8 md:p-10 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-10 text-left">
                 
                 <div className="flex-1 space-y-4 w-full">
@@ -308,7 +314,7 @@ export default function Explore() {
                     }
                     className="w-full inline-flex items-center justify-center rounded-xl px-6 py-4 text-sm font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
                   >
-                    Start Contributing
+                    Start with this issue
                   </button>
                 </div>
 
@@ -326,9 +332,14 @@ export default function Explore() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-20"
+                className="w-full pb-20"
               >
-                {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div className="flex flex-col items-center justify-center mb-10 pt-4">
+                  <Loader2 className="w-10 h-10 text-primary animate-spin mb-4" />
+                  <p className="text-lg font-medium text-foreground">Loading beginner-friendly issues...</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div key={i} className="bg-white/5 border border-white/10 rounded-3xl p-6 h-64 animate-pulse flex flex-col justify-between">
                     <div className="flex justify-between items-start mb-4">
                       <div className="w-1/2 h-6 bg-white/10 rounded-full" />
@@ -348,6 +359,7 @@ export default function Explore() {
                     </div>
                   </div>
                 ))}
+                </div>
               </motion.div>
             )}
 
@@ -377,31 +389,18 @@ export default function Explore() {
               >
                 <Sparkles className="w-12 h-12 text-primary/80 mb-6" />
                 <h3 className="text-2xl font-bold text-foreground mb-2">
-                  No matching issues yet, and that is okay.
+                  No issues found for this skill.
                 </h3>
-                <p className="text-base md:text-lg text-muted-foreground max-w-xl mb-6">
-                  Sometimes a selected skill has fewer open beginner issues right now. Try one of these popular options to discover active beginner-friendly tasks.
+                <p className="text-base md:text-lg text-muted-foreground max-w-xl mb-8">
+                  Try JavaScript — similar skills
                 </p>
-
-                <div className="flex flex-wrap justify-center gap-2 mb-6">
-                  {recommendedSkills.map((skill) => (
-                    <button
-                      key={skill}
-                      type="button"
-                      onClick={() => setSelectedSkills([skill])}
-                      className="px-3 py-1.5 rounded-full text-sm font-medium bg-secondary border border-border text-secondary-foreground hover:bg-accent hover:text-accent-foreground hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 ease-in-out"
-                    >
-                      Try {skill}
-                    </button>
-                  ))}
-                </div>
 
                 <button
                   type="button"
                   onClick={handleShowRecommendedIssues}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:shadow-[0_0_20px_rgba(124,137,255,0.4)] hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-in-out"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:shadow-[0_0_20px_rgba(124,137,255,0.4)] hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-in-out"
                 >
-                  Show Recommended Issues
+                  Show recommended issues
                 </button>
               </motion.div>
             )}
@@ -419,7 +418,7 @@ export default function Explore() {
                     <span className="text-lg">💡</span>
                     <span className="text-sm font-medium">
                       {selectedSkills.length > 0
-                        ? "Based on your selected skills, we recommend these issues"
+                        ? "Based on your skills, we found these beginner-friendly issues for you"
                         : "Here are some beginner-friendly issues to get started"}
                     </span>
                   </div>

@@ -122,11 +122,11 @@ export default function GitCommands() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: idx * 0.1, duration: 0.6 }}
-            className="flex flex-col bg-card/60 backdrop-blur-xl border border-border rounded-4xl overflow-hidden shadow-lg"
+            className="flex flex-col bg-white/5 backdrop-blur-xl border border-white/10 rounded-4xl overflow-hidden shadow-lg transition-all duration-200 hover:border-primary/30 hover:shadow-[0_0_20px_rgba(124,137,255,0.1)]"
           >
             {/* Section Header */}
-            <div className="bg-primary/5 border-b border-border px-8 py-5 flex items-center gap-4">
-              <div className="p-3 bg-card rounded-xl border border-border shadow-sm">
+            <div className="bg-primary/5 border-b border-white/10 px-8 py-5 flex items-center gap-4">
+              <div className="p-3 bg-white/5 rounded-xl border border-white/10 shadow-sm">
                 {section.icon}
               </div>
               <h3 className="text-2xl font-extrabold text-foreground tracking-tight">
@@ -137,7 +137,7 @@ export default function GitCommands() {
             {/* Section Commands */}
             <div className="p-8 flex flex-col gap-8">
               {section.items.map((item) => (
-                <div key={item.cmd} className="relative flex flex-col lg:flex-row gap-6 lg:gap-10 border-b border-border/50 pb-8 last:border-0 last:pb-0">
+                <div key={item.cmd} className="relative flex flex-col lg:flex-row gap-6 lg:gap-10 border-b border-white/10 pb-8 last:border-0 last:pb-0">
                   
                   {/* Left Column: Command & Description */}
                   <div className="lg:w-2/5 flex flex-col gap-3">
@@ -145,8 +145,8 @@ export default function GitCommands() {
                     <p className="text-primary font-semibold text-sm tracking-wide uppercase">{item.desc}</p>
                     
                     <div className="mt-2 group relative">
-                      <div className="bg-[#0a0a0a] border border-border rounded-2xl p-4 pr-12 flex flex-col gap-1 shadow-inner relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+                      <div className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-4 pr-12 flex flex-col gap-1 shadow-inner relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-1 h-full bg-primary/80"></div>
                         <code className="text-[15px] font-mono text-[#d4d4d4] font-medium leading-relaxed whitespace-pre-wrap word-break">
                           <span className="text-primary/60 select-none mr-2">$</span>
                           {item.cmd}
@@ -169,7 +169,7 @@ export default function GitCommands() {
                     </p>
                     
                     {item.tip && (
-                      <div className="mt-5 inline-flex items-start gap-3 bg-accent/20 border border-accent/30 rounded-xl p-4">
+                      <div className="mt-5 inline-flex items-start gap-3 bg-primary/10 border border-primary/20 rounded-xl p-4">
                         <Lightbulb className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                         <p className="text-sm font-semibold text-foreground/80 leading-relaxed">
                           <span className="text-primary font-bold mr-1">Pro Tip:</span> 
