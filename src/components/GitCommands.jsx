@@ -122,7 +122,7 @@ export default function GitCommands() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: idx * 0.1, duration: 0.6 }}
-            className="flex flex-col bg-card/60 backdrop-blur-xl border border-border rounded-[2rem] overflow-hidden shadow-lg"
+            className="flex flex-col bg-card/60 backdrop-blur-xl border border-border rounded-4xl overflow-hidden shadow-lg"
           >
             {/* Section Header */}
             <div className="bg-primary/5 border-b border-border px-8 py-5 flex items-center gap-4">

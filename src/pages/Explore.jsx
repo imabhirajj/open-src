@@ -175,7 +175,7 @@ export default function Explore() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="w-full max-w-7xl pt-2 md:pt-4">
+      <div className="w-full pt-2 md:pt-4">
         {/* Header Section */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -257,33 +257,37 @@ export default function Explore() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mb-8 md:mb-10 rounded-3xl border border-primary/30 bg-linear-to-r from-primary/12 via-accent/8 to-transparent p-5 md:p-8 shadow-xl"
+            className="mb-10 md:mb-12 rounded-4xl border border-primary/30 bg-linear-to-b from-primary/10 to-transparent p-8 md:p-12 shadow-[0_0_40px_rgba(124,137,255,0.15)] relative overflow-hidden flex flex-col items-center text-center"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary mb-2">
-              Today&apos;s Best Issue
-            </p>
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-              <div className="max-w-3xl">
-                <h2 className="text-xl md:text-3xl font-extrabold text-foreground mb-2 md:mb-3">
-                  {todaysBestIssue.issueTitle}
-                </h2>
-                <p className="text-muted-foreground text-sm md:text-base mb-4">
-                  {todaysBestIssue.shortDescription}
-                </p>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/10 text-emerald-300 text-xs font-bold">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
+            
+            <div className="relative z-10 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/20 border border-primary/30 mb-6 shadow-sm">
+              <span className="text-sm font-bold uppercase tracking-[0.2em] text-primary">⭐ Best for You</span>
+            </div>
+            
+            <div className="relative z-10 max-w-3xl flex flex-col items-center">
+              <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-4 leading-tight">
+                {todaysBestIssue.issueTitle}
+              </h2>
+              <p className="text-muted-foreground text-base md:text-lg mb-8 leading-relaxed">
+                {todaysBestIssue.shortDescription}
+              </p>
+              
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <div className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl border border-emerald-400/30 bg-emerald-500/15 text-emerald-300 text-sm font-bold shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                   Beginner Score: {todaysBestIssue.beginnerScore}/10
                 </div>
-              </div>
 
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
-                }
-                className="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/35 hover:-translate-y-0.5 active:scale-[0.98] transition-all"
-              >
-                Start Contributing
-              </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
+                  }
+                  className="inline-flex items-center justify-center rounded-2xl px-8 py-3.5 text-base font-bold bg-linear-to-r from-primary to-accent text-primary-foreground shadow-xl shadow-primary/25 hover:shadow-[0_0_25px_rgba(124,137,255,0.45)] hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98] transition-all duration-200 ease-in-out"
+                >
+                  Start Contributing
+                </button>
+              </div>
             </div>
           </motion.section>
         )}
@@ -297,18 +301,28 @@ export default function Explore() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex flex-col items-center justify-center py-20"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-20"
               >
-                <div className="relative mb-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20" />
-                  <Loader2 className="w-9 h-9 text-primary animate-spin absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-                </div>
-                <p className="text-lg font-semibold text-foreground">
-                  Finding beginner-friendly issues...
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Curating the best matches for your selected skills.
-                </p>
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="bg-white/5 border border-white/10 rounded-3xl p-6 h-64 animate-pulse flex flex-col justify-between">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="w-1/2 h-6 bg-white/10 rounded-full" />
+                      <div className="w-16 h-6 bg-white/10 rounded-full" />
+                    </div>
+                    <div className="space-y-3 mb-6">
+                      <div className="w-full h-5 bg-white/10 rounded-md" />
+                      <div className="w-4/5 h-5 bg-white/10 rounded-md" />
+                      <div className="w-3/5 h-5 bg-white/10 rounded-md" />
+                    </div>
+                    <div className="flex gap-2 mb-auto">
+                      <div className="w-20 h-6 bg-white/10 rounded-full" />
+                      <div className="w-24 h-6 bg-white/10 rounded-full" />
+                    </div>
+                    <div className="pt-4 mt-auto border-t border-white/10">
+                      <div className="w-full h-12 bg-white/10 rounded-xl" />
+                    </div>
+                  </div>
+                ))}
               </motion.div>
             )}
 
@@ -350,7 +364,7 @@ export default function Explore() {
                       key={skill}
                       type="button"
                       onClick={() => setSelectedSkills([skill])}
-                      className="px-3 py-1.5 rounded-full text-sm font-medium bg-secondary border border-border text-secondary-foreground hover:bg-accent hover:text-accent-foreground hover:-translate-y-0.5 transition-all duration-200"
+                      className="px-3 py-1.5 rounded-full text-sm font-medium bg-secondary border border-border text-secondary-foreground hover:bg-accent hover:text-accent-foreground hover:-translate-y-0.5 hover:scale-105 transition-all duration-200 ease-in-out"
                     >
                       Try {skill}
                     </button>
@@ -360,7 +374,7 @@ export default function Explore() {
                 <button
                   type="button"
                   onClick={handleShowRecommendedIssues}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/35 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:shadow-[0_0_20px_rgba(124,137,255,0.4)] hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-in-out"
                 >
                   Show Recommended Issues
                 </button>

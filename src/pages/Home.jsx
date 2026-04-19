@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <div className="w-full flex justify-center pb-16 md:pb-20">
-      <div className="w-full max-w-7xl mt-2 sm:mt-6 flex flex-col items-center">
+      <div className="w-full mt-2 sm:mt-6 flex flex-col items-center">
         {/* Signature Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,16 +55,16 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.05]"
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1]"
               >
-                Find your <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-cyan-300 to-violet-300">first PR win</span> without the confusion.
+                Make Your First <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-cyan-300 to-violet-300">Open Source Contribution</span> 🚀
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="mt-5 text-base md:text-lg text-muted-foreground max-w-xl"
+                className="mt-6 text-base md:text-lg lg:text-xl text-muted-foreground/90 max-w-2xl leading-relaxed"
               >
                 We surface beginner-friendly issues, explain why they match your level, and guide you from first click to merged contribution.
               </motion.p>
@@ -78,7 +78,7 @@ export default function Home() {
                 <Link
                   to="/explore"
                   state={{ selectedSkills }}
-                  className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-primary-foreground bg-primary rounded-2xl overflow-hidden transition-all hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_40px_-10px_rgba(124,137,255,0.55)]"
+                  className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-primary-foreground bg-primary rounded-2xl overflow-hidden transition-all duration-200 ease-in-out hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_40px_-10px_rgba(124,137,255,0.55)] hover:shadow-[0_0_40px_-5px_rgba(124,137,255,0.7)]"
                 >
                   <div className="absolute inset-0 bg-linear-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <span className="relative z-10 flex items-center gap-2">
@@ -91,7 +91,7 @@ export default function Home() {
                   href={GITHUB_REPO_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-foreground bg-white/5 hover:bg-white/10 rounded-2xl border border-white/15 backdrop-blur-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-semibold text-foreground bg-white/5 hover:bg-white/10 rounded-2xl border border-white/15 backdrop-blur-sm transition-all duration-200 ease-in-out hover:scale-[1.02] hover:border-white/30 active:scale-[0.98]"
                 >
                   <Code className="w-5 h-5" />
                   View on GitHub
@@ -126,8 +126,8 @@ export default function Home() {
         </motion.div>
 
         <section className="w-full mb-12 md:mb-14">
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-6 py-8 sm:px-10 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md px-6 py-8 sm:px-10 text-center shadow-sm">
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
               Start Without Fear
             </h2>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
@@ -162,7 +162,7 @@ export default function Home() {
 
         <section className="w-full mt-14 md:mt-16">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
               How It Works
             </h2>
             <p className="mt-3 text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
@@ -171,7 +171,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-md transition-all">
+            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-200 ease-in-out hover:-translate-y-1.5 hover:scale-[1.02]">
               <div className="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-4">
                 <Code2 className="w-6 h-6" />
               </div>
@@ -181,7 +181,7 @@ export default function Home() {
               </p>
             </article>
 
-            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-md transition-all">
+            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-200 ease-in-out hover:-translate-y-1.5 hover:scale-[1.02]">
               <div className="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-4">
                 <SearchCheck className="w-6 h-6" />
               </div>
@@ -191,7 +191,7 @@ export default function Home() {
               </p>
             </article>
 
-            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-md transition-all">
+            <article className="rounded-2xl border border-border bg-white/5 backdrop-blur-xl p-6 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-200 ease-in-out hover:-translate-y-1.5 hover:scale-[1.02]">
               <div className="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center mb-4">
                 <GitPullRequest className="w-6 h-6" />
               </div>

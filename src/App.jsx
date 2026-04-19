@@ -15,7 +15,7 @@ function App() {
       <div className="min-h-screen flex flex-col bg-background text-foreground font-sans selection:bg-primary/30 relative overflow-hidden">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-primary-foreground"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-primary-foreground"
         >
           Skip to main content
         </a>
@@ -31,7 +31,7 @@ function App() {
           <RouteMeta />
           <ScrollToTop />
           <Navbar />
-          <main id="main-content" className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+          <main id="main-content" className="flex-1 w-full max-w-6xl mx-auto px-6 py-10 flex flex-col items-center">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/explore" element={<Explore />} />
