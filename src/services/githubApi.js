@@ -1,7 +1,7 @@
 export const fetchIssues = async (skill = 'javascript') => {
   try {
     // Query specifically for easy/beginner-friendly issues
-    const encodedQuery = encodeURIComponent(`label:"good first issue" OR label:"beginner" OR label:"first-timers-only" language:${skill} state:open`);
+    const encodedQuery = encodeURIComponent(`label:"good first issue" language:${skill} state:open`);
     const url = `https://api.github.com/search/issues?q=${encodedQuery}&sort=updated&order=desc&per_page=30`;
     
     const response = await fetch(url);
@@ -12,7 +12,7 @@ export const fetchIssues = async (skill = 'javascript') => {
     const data = await response.json();
     let issues = data.items || [];
     
-    // Calculate score based on specific criteria for beginners
+    // Calculate score based on specific criteria for beginners (out of 10)
     issues = issues.map(issue => {
       let score = 5; // Base score
       const title = (issue.title || '').toLowerCase();
@@ -37,6 +37,9 @@ export const fetchIssues = async (skill = 'javascript') => {
       
       // Penalize complex-sounding titles
       if (title.includes('refactor') || title.includes('architecture') || title.includes('migration')) score -= 2;
+      
+      // Bound score between 1 and 10
+      score = Math.max(1, Math.min(10, score));
       
       return {
         ...issue,

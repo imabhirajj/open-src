@@ -131,6 +131,36 @@ export default function Explore() {
   }, [issues]);
 
   const displayedIssues = useMemo(() => {
+    // When no filter applied, show in 40% easy / 40% medium / 20% hard ratio
+    if (difficultyFilter === 'all' && typeFilter === 'all') {
+      const remainingIssues = issues.filter((issue) => {
+        if (todaysBestIssue && issue.id === todaysBestIssue.id) return false;
+        return true;
+      });
+      
+      const easy = remainingIssues.filter(i => getDifficulty(i.beginnerScore) === 'easy');
+      const medium = remainingIssues.filter(i => getDifficulty(i.beginnerScore) === 'medium');
+      const hard = remainingIssues.filter(i => getDifficulty(i.beginnerScore) === 'hard');
+      
+      // Target: 40% easy, 40% medium, 20% hard
+      const targetEasy = Math.floor(remainingIssues.length * 0.4);
+      const targetMedium = Math.floor(remainingIssues.length * 0.4);
+      
+      const finalIssues = [
+        ...easy.slice(0, targetEasy),
+        ...medium.slice(0, targetMedium),
+        ...hard
+      ];
+      
+      return finalIssues.sort((a, b) => {
+        if (sortBy === 'latest') {
+          return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+        }
+        return b.beginnerScore - a.beginnerScore;
+      });
+    }
+    
+    // When specific filter applied, use existing logic
     const filtered = issues.filter((issue) => {
       if (todaysBestIssue && issue.id === todaysBestIssue.id) return false;
       const matchesDifficulty =
