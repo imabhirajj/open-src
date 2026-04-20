@@ -1,4 +1,5 @@
 import GitCommands from '../components/GitCommands';
+import GitHelpGuide from '../components/GitHelpGuide';
 import { motion } from 'framer-motion';
 
 export default function GitGuide() {
@@ -9,6 +10,8 @@ export default function GitGuide() {
         exit={{ opacity: 0 }}
         className="w-full flex-1 flex flex-col items-center pb-20 pt-4"
     >
+      <GitHelpGuide />
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-4" />
       <GitCommands />
     </motion.div>
   );

@@ -56,34 +56,7 @@ export default function Explore() {
     return 'other';
   };
 
-  const calculateBeginnerScore = (item) => {
-    let score = 5;
-    const title = (item.title || '').toLowerCase();
-    const labels = (item.labels || []).map((label) => (label.name || '').toLowerCase());
-    const comments = item.comments || 0;
-    const updatedAt = item.updated_at ? new Date(item.updated_at).getTime() : Date.now();
-    const daysSinceUpdate = Math.floor((Date.now() - updatedAt) / (1000 * 60 * 60 * 24));
 
-    const hasAnyLabel = (keywords) =>
-      keywords.some((word) => labels.some((label) => label.includes(word)));
-    const titleHasAny = (keywords) => keywords.some((word) => title.includes(word));
-
-    // Positive beginner signals
-    if (hasAnyLabel(['good first issue', 'beginner', 'starter', 'first-timers'])) score += 2;
-    if (hasAnyLabel(['documentation', 'docs']) || titleHasAny(['doc', 'readme'])) score += 1;
-    if (hasAnyLabel(['help wanted'])) score += 1;
-    if (daysSinceUpdate <= 14) score += 1;
-
-    // Complexity/risk signals
-    if (comments > 10) score -= 2;
-    else if (comments > 4) score -= 1;
-    if (titleHasAny(['refactor', 'architecture', 'performance', 'security'])) score -= 1;
-    if (titleHasAny(['breaking', 'migration'])) score -= 1;
-    if (daysSinceUpdate > 90) score -= 1;
-
-    // Keep score in 1..10
-    return Math.max(1, Math.min(10, score));
-  };
 
   useEffect(() => {
     const getIssues = async () => {
@@ -108,7 +81,7 @@ export default function Explore() {
         });
 
         // Take top 10 combined issues
-        aggregatedData = aggregatedData.slice(0, 10);
+        aggregatedData = aggregatedData.slice(0, 30);
         
         // Map GitHub data to what IssueCard expects
         const mappedIssues = aggregatedData.map((item) => {
@@ -125,7 +98,7 @@ export default function Explore() {
             repoName: repoName,
             issueTitle: item.title,
             shortDescription,
-            beginnerScore: calculateBeginnerScore(item),
+            beginnerScore: item.score || 0,
             labels: (item.labels || []).map((label) => label.name),
             comments: item.comments || 0,
             updatedAt: item.updated_at,
@@ -144,22 +117,6 @@ export default function Explore() {
     getIssues();
   }, [selectedSkills]);
 
-  const displayedIssues = useMemo(() => {
-    const filtered = issues.filter((issue) => {
-      const matchesDifficulty =
-        difficultyFilter === 'all' || getDifficulty(issue.beginnerScore) === difficultyFilter;
-      const matchesType = typeFilter === 'all' || getIssueType(issue) === typeFilter;
-      return matchesDifficulty && matchesType;
-    });
-
-    return filtered.sort((a, b) => {
-      if (sortBy === 'latest') {
-        return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-      }
-      return b.beginnerScore - a.beginnerScore;
-    });
-  }, [issues, difficultyFilter, typeFilter, sortBy]);
-
   const todaysBestIssue = useMemo(() => {
     if (!issues.length) return null;
 
@@ -172,6 +129,23 @@ export default function Explore() {
 
     return qualitySorted[0];
   }, [issues]);
+
+  const displayedIssues = useMemo(() => {
+    const filtered = issues.filter((issue) => {
+      if (todaysBestIssue && issue.id === todaysBestIssue.id) return false;
+      const matchesDifficulty =
+        difficultyFilter === 'all' || getDifficulty(issue.beginnerScore) === difficultyFilter;
+      const matchesType = typeFilter === 'all' || getIssueType(issue) === typeFilter;
+      return matchesDifficulty && matchesType;
+    });
+
+    return filtered.sort((a, b) => {
+      if (sortBy === 'latest') {
+        return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+      }
+      return b.beginnerScore - a.beginnerScore;
+    });
+  }, [issues, difficultyFilter, typeFilter, sortBy, todaysBestIssue]);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -258,15 +232,13 @@ export default function Explore() {
           </select>
         </motion.div>
 
-        {!loading && !error && todaysBestIssue && (
-          <div className="mb-14 md:mb-16 w-full max-w-5xl mx-auto flex flex-col items-center">
-            <div className="flex flex-col items-center mb-6 text-center">
-              <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-2">
-                Start here: We picked the easiest issue for you
-              </h2>
-              <p className="text-sm md:text-base text-muted-foreground font-medium flex items-center justify-center gap-2">
-                <span className="text-emerald-400 font-bold">✓</span> No experience needed. Just follow the steps.
-              </p>
+{!loading && !error && todaysBestIssue && (
+          <div className="mb-12 w-full max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                Top Pick
+              </span>
+              <span className="text-muted-foreground text-sm font-medium">Easiest issue to start with</span>
             </div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -274,58 +246,44 @@ export default function Explore() {
               transition={{ delay: 0.2 }}
               className="w-full relative group"
             >
-              <div className="absolute -inset-0.5 bg-linear-to-r from-primary via-fuchsia-500 to-cyan-400 rounded-4xl blur-md opacity-40 group-hover:opacity-75 transition duration-200"></div>
-              <div className="relative w-full rounded-4xl bg-[#0f111a]/90 backdrop-blur-xl border border-white/10 p-8 md:p-10 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-10 text-left">
+              <div className="absolute -inset-0.5 bg-linear-to-r from-primary via-fuchsia-500 to-cyan-400 rounded-3xl blur-md opacity-30 group-hover:opacity-60 transition duration-200"></div>
+              <div className="relative w-full rounded-3xl bg-[#0f111a]/90 backdrop-blur-xl border border-white/10 p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 text-left">
                 
-                <div className="flex-1 space-y-4 w-full">
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <span className="inline-flex items-center px-3 tracking-wide py-1 rounded-full bg-primary/20 border border-primary/30 text-primary text-[10px] sm:text-xs font-bold uppercase">
-                      Recommended
-                    </span>
-                    <span className="text-cyan-300/90 text-sm font-medium">
-                      Perfect for your first contribution
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-foreground transition-colors group-hover:text-primary">
+                <div className="flex-1 space-y-3 w-full">
+                  <h3 className="text-lg md:text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                     {todaysBestIssue.issueTitle}
                   </h3>
 
-                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed line-clamp-3">
+                  <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
                     {todaysBestIssue.shortDescription}
                   </p>
                   
-                  <div className="flex flex-wrap items-center gap-2 pt-2">
-                    {todaysBestIssue.labels?.slice(0, 4).map((label) => (
-                      <span key={label} className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-foreground/80 font-medium whitespace-nowrap">
+                  <div className="flex flex-wrap items-center gap-2 pt-1">
+                    {todaysBestIssue.labels?.slice(0, 3).map((label) => (
+                      <span key={label} className="px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-foreground/70 font-medium whitespace-nowrap">
                         {label}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="shrink-0 flex flex-col items-center md:items-end w-full md:w-auto gap-5 self-center justify-center md:border-l md:border-white/10 md:pl-10 relative z-10">
-                   <div className="text-center xl:text-right bg-emerald-500/10 border border-emerald-500/20 px-6 py-4 rounded-2xl w-full">
-                     <p className="text-4xl font-black text-emerald-400">
-                       {todaysBestIssue.beginnerScore}<span className="text-2xl text-emerald-400/50">/10</span>
-                     </p>
-                     <p className="text-[11px] text-emerald-400/80 font-bold uppercase tracking-widest mt-1">Beginner Score</p>
-                   </div>
-                   
-                   <div className="w-full flex flex-col gap-3">
-                     <button
-                      type="button"
-                      onClick={() =>
-                        navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
-                      }
-                      className="w-full inline-flex items-center justify-center rounded-xl px-6 py-4 text-sm font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
-                    >
-                      Start With This Issue 🚀
-                    </button>
-                    <p className="text-[11px] text-muted-foreground/80 font-medium text-center uppercase tracking-wider">
-                      Used by beginners to make their first PR
-                    </p>
-                   </div>
+                <div className="shrink-0 flex flex-col items-center gap-4 w-full md:w-auto">
+                   <div className="text-center bg-emerald-500/10 border border-emerald-500/20 px-5 py-3 rounded-xl">
+                      <p className="text-3xl font-black text-emerald-400">
+                        {todaysBestIssue.beginnerScore}<span className="text-lg text-emerald-400/50">/10</span>
+                      </p>
+                      <p className="text-[10px] text-emerald-400/80 font-bold uppercase tracking-widest mt-0.5">Beginner Score</p>
+                    </div>
+                    
+                    <button
+                       type="button"
+                       onClick={() =>
+                         navigate(`/issue/${todaysBestIssue.id}`, { state: { issue: todaysBestIssue } })
+                       }
+                       className="w-full inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-bold bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
+                     >
+                       Start Here
+                     </button>
                 </div>
 
               </div>
@@ -423,15 +381,10 @@ export default function Explore() {
                 exit={{ opacity: 0 }}
                 className="pb-20"
               >
-                <div className="flex items-center justify-center mb-8">
-                  <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 shadow-inner backdrop-blur-sm">
-                    <span className="text-lg">💡</span>
-                    <span className="text-sm font-medium">
-                      {selectedSkills.length > 0
-                        ? "Based on your skills, we found these beginner-friendly issues for you"
-                        : "Here are some beginner-friendly issues to get started"}
-                    </span>
-                  </div>
+                <div className="flex items-center justify-center mb-6">
+                  <p className="text-muted-foreground text-sm font-medium">
+                    More beginner-friendly issues
+                  </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">

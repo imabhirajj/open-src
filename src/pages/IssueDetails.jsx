@@ -191,6 +191,20 @@ export default function IssueDetails() {
         </div>
       </section>
 
+      <section className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-xl mb-6">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-4">
+          How a developer would approach this issue
+        </h2>
+        
+        <ol className="list-decimal list-inside space-y-3 text-slate-300 font-medium">
+          <li>Read the issue carefully</li>
+          <li>Find relevant files in the repo</li>
+          <li>Start with a small fix</li>
+          <li>Test changes locally</li>
+          <li>Create a clean pull request</li>
+        </ol>
+      </section>
+
       <section className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-xl mb-6 relative overflow-hidden">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center">

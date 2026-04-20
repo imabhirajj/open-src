@@ -4,7 +4,12 @@ import { Target } from 'lucide-react';
 
 export default function SkillSelector({ selectedSkills = [], onSkillChange }) {
   // A predefined list of common skills
-  const availableSkills = ['JavaScript', 'Python', 'TypeScript', 'HTML', 'Java', 'C++', 'CSS', 'React', 'Node.js', 'Go'];
+  const availableSkills = [
+    'JavaScript', 'Python', 'TypeScript', 'HTML', 'Java', 
+    'C++', 'CSS', 'React', 'Node.js', 'Go', 
+    'Ruby', 'Rust', 'Swift', 'Kotlin', 'PHP',
+    'C#', 'Dart', 'Scala', 'Vue', 'Angular'
+  ];
   
   // Function to handle a skill click
   const handleSkillClick = (skill) => {
