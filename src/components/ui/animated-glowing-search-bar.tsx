@@ -3,8 +3,8 @@ import { Search, SlidersHorizontal } from 'lucide-react';
 
 const SearchComponent = () => {
   return (
-    <div className="relative flex items-center justify-center p-4">
-      <div id="poda" className="relative flex items-center justify-center group w-[314px]">
+    <div className="relative flex items-center justify-center p-4 w-full">
+      <div id="poda" className="relative flex items-center justify-center group w-full max-w-[314px]">
         <div className="absolute z-[-1] overflow-hidden h-full w-full max-h-[70px] max-w-[314px] rounded-xl blur-[3px] 
                         before:absolute before:content-[''] before:z-[-2] before:w-[999px] before:h-[999px] before:bg-no-repeat before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-60
                         before:bg-[conic-gradient(#000,#F7931A_5%,#000_38%,#000_50%,#EA580C_60%,#000_87%)] before:transition-all before:duration-2000
