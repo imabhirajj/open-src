@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ExternalLink, Rocket, GitBranch, Globe, MessageSquare } from 'lucide-react';
+import { ExternalLink, Rocket, GitBranch, Globe, MessageSquare, GitPullRequest } from 'lucide-react';
 import { GITHUB_REPO_URL, PROJECT_NAME } from '../config/site';
 
 export default function Footer() {
@@ -13,11 +13,12 @@ export default function Footer() {
           
           {/* Brand Column */}
           <div className="flex flex-col gap-6 lg:pr-8">
-            <Link to="/" className="text-2xl font-black text-white tracking-widest flex items-center gap-2 group w-fit">
-              <span className="text-orange-500 font-data-mono">{'>_'}</span>
-              <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-orange-500 group-hover:to-digital-gold transition-all duration-300">
-                OSNAV
-              </span>
+            <Link to="/" className="flex items-center gap-2 group transition-transform hover:scale-105 w-fit">
+              <GitPullRequest className="w-7 h-7 text-orange-500 group-hover:text-orange-400 transition-colors" />
+              <div className="flex items-center tracking-tighter">
+                <span className="text-2xl font-black text-white">PR</span>
+                <span className="text-2xl font-black text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">Flow</span>
+              </div>
             </Link>
             <p className="text-sm font-medium text-white/40 leading-relaxed font-inter">
               Empowering beginners to make their first open-source contributions. 

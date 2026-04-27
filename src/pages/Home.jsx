@@ -91,8 +91,12 @@ export default function Home() {
               <div className="absolute inset-0 rounded-full border border-orange-500/20 animate-[spin_10s_linear_infinite]"></div>
               <div className="absolute inset-4 rounded-full border-2 border-orange-500/10 animate-[spin_15s_linear_infinite_reverse]"></div>
               <div className="absolute inset-12 rounded-full bg-linear-to-br from-orange-500/20 to-transparent blur-2xl opacity-50"></div>
-              <div className="absolute inset-24 bg-black rounded-full shadow-[0_0_100px_rgba(247,147,26,0.3)] flex items-center justify-center border border-white/10">
-                <Code2 className="w-24 h-24 md:w-32 md:h-32 text-orange-500 opacity-80" />
+              <div className="absolute inset-24 bg-black rounded-full shadow-[0_0_100px_rgba(247,147,26,0.2)] flex flex-col items-center justify-center border border-white/10 group-hover:scale-105 transition-transform duration-500">
+                <GitPullRequest className="w-16 h-16 md:w-20 md:h-20 text-orange-500 mb-1 relative z-10" />
+                <div className="flex items-center leading-none">
+                  <span className="text-2xl md:text-4xl font-black text-white tracking-tighter">PR</span>
+                  <span className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600 tracking-tighter">Flow</span>
+                </div>
               </div>
             </div>
           </div>

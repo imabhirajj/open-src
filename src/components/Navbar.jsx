@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X, GitPullRequest } from 'lucide-react';
 import { GITHUB_REPO_URL } from '../config/site';
 
 export default function Navbar() {
@@ -18,9 +18,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur-xl shadow-[0_0_20px_rgba(247,147,26,0.1)]">
       <nav className="flex justify-between items-center w-full px-6 md:px-12 h-20 max-w-[1400px] mx-auto">
-        <Link to="/" className="flex items-center gap-2 text-2xl font-black text-orange-500 font-h1 uppercase tracking-widest hover:text-orange-400 transition-colors">
-          <Terminal className="w-7 h-7" />
-          OSNav
+        <Link to="/" className="flex items-center gap-2 group transition-transform hover:scale-105">
+          <GitPullRequest className="w-7 h-7 text-orange-500 group-hover:text-orange-400 transition-colors" />
+          <div className="flex items-center tracking-tighter">
+            <span className="text-2xl font-black text-white">PR</span>
+            <span className="text-2xl font-black text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">Flow</span>
+          </div>
         </Link>
         
         <div className="hidden md:flex items-center gap-8">
