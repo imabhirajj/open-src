@@ -12,20 +12,15 @@ import RouteMeta from './components/RouteMeta';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-background text-foreground font-sans selection:bg-primary/30 relative overflow-hidden">
+      <div className="min-h-screen flex flex-col textured-void text-white/90 relative overflow-hidden">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-primary-foreground"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-orange-500 focus:text-black"
         >
           Skip to main content
         </a>
 
-        {/* Ambient background effect */}
-        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/20 blur-[120px] animate-blob"></div>
-          <div className="absolute top-[20%] right-[-10%] w-[30%] h-[50%] rounded-full bg-purple-600/20 blur-[120px] animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-[-20%] left-[20%] w-[40%] h-[40%] rounded-full bg-pink-600/20 blur-[120px] animate-blob animation-delay-4000"></div>
-        </div>
+        {/* Global theme container managed from index.css */}
         
         <div className="relative z-10 flex flex-col min-h-screen w-full">
           <RouteMeta />

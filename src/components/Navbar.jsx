@@ -16,73 +16,55 @@ export default function Navbar() {
   }, [location.pathname]);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-2xl border-b border-border shadow-md transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="shrink-0 flex items-center gap-3"
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur-xl shadow-[0_0_20px_rgba(247,147,26,0.1)]">
+      <nav className="flex justify-between items-center w-full px-6 md:px-12 h-20 max-w-[1400px] mx-auto">
+        <Link to="/" className="flex items-center gap-2 text-2xl font-black text-orange-500 font-h1 uppercase tracking-widest hover:text-orange-400 transition-colors">
+          <Terminal className="w-7 h-7" />
+          OSNav
+        </Link>
+        
+        <div className="hidden md:flex items-center gap-8">
+          <Link 
+            to="/" 
+            className={`font-data-mono tracking-widest pb-1 transition-colors ${isActive('/') ? 'text-orange-500 border-b-2 border-orange-500' : 'text-white/60 hover:text-white'}`}
           >
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20">
-              <Terminal className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <Link 
-              to="/" 
-              className="text-xl font-extrabold tracking-tight text-foreground hover:text-primary transition-colors"
-            >
-              OS<span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">Nav</span>
-            </Link>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {[
-              { name: 'Home', path: '/' },
-              { name: 'Explore', path: '/explore' },
-              { name: 'Git Guide', path: '/git-guide' }
-            ].map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 group"
-              >
-                <span className={`relative z-10 ${isActive(item.path) ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
-                  {item.name}
-                </span>
-                {isActive(item.path) && (
-                  <motion.div
-                    layoutId="navbar-indicator"
-                    className="absolute inset-0 bg-primary/10 border border-primary/20 rounded-full"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                  />
-                )}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Action button */}
-          <div className="hidden md:flex items-center">
-            <a href={GITHUB_REPO_URL} target="_blank" rel="noreferrer" className="px-5 py-2.5 text-sm font-semibold text-foreground bg-muted border border-border hover:bg-accent hover:text-accent-foreground rounded-full transition-all hover:scale-105 active:scale-95 shadow-sm">
-              Start on GitHub
-            </a>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
-              aria-expanded={isOpen}
-              aria-label={isOpen ? 'Close menu' : 'Open menu'}
-            >
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
+            Home
+          </Link>
+          <Link 
+            to="/explore" 
+            className={`font-data-mono tracking-widest pb-1 transition-colors ${isActive('/explore') ? 'text-orange-500 border-b-2 border-orange-500' : 'text-white/60 hover:text-white'}`}
+          >
+            Explore
+          </Link>
+          <Link 
+            to="/git-guide" 
+            className={`font-data-mono tracking-widest pb-1 transition-colors ${isActive('/git-guide') ? 'text-orange-500 border-b-2 border-orange-500' : 'text-white/60 hover:text-white'}`}
+          >
+            Git Guide
+          </Link>
         </div>
-      </div>
+
+        <div className="hidden md:flex items-center gap-6">
+          <a 
+            href={GITHUB_REPO_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="bitcoin-gradient px-6 py-2 rounded-full text-black font-bold uppercase text-xs tracking-widest scale-95 active:scale-90 transition-transform duration-150 orange-glow inline-block"
+          >
+            Start on GitHub
+          </a>
+        </div>
+
+        {/* Mobile menu button */}
+        <div className="flex items-center md:hidden">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="inline-flex items-center justify-center p-2 rounded-xl text-white/60 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+      </nav>
 
       {/* Mobile Navigation */}
       <AnimatePresence>
@@ -91,9 +73,9 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/5 bg-[#030712]/95 backdrop-blur-3xl overflow-hidden"
+            className="md:hidden border-t border-white/5 bg-black/95 backdrop-blur-3xl overflow-hidden"
           >
-            <div className="pt-2 pb-4 space-y-1 px-4 sm:px-6">
+            <div className="pt-2 pb-6 space-y-2 px-6">
               {[
                 { name: 'Home', path: '/' },
                 { name: 'Explore', path: '/explore' },
@@ -103,21 +85,22 @@ export default function Navbar() {
                   key={item.name}
                   to={item.path}
                   onClick={() => setIsOpen(false)}
-                  className={`block px-4 py-3 rounded-2xl text-base font-medium transition-colors ${
+                  className={`block px-4 py-3 rounded-2xl font-data-mono tracking-widest text-sm transition-colors ${
                     isActive(item.path) 
-                      ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_10px_-2px_rgba(124,137,255,0.15)]' 
-                      : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                      ? 'bg-orange-500/10 text-orange-500 border border-orange-500/20' 
+                      : 'text-white/60 hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-4">
-                <a
+              <div className="pt-6 flex flex-col gap-4">
+                <a 
                   href={GITHUB_REPO_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full flex justify-center py-3 text-sm font-semibold text-white bg-white/10 rounded-2xl border border-white/5 active:bg-white/20"
+                  onClick={() => setIsOpen(false)}
+                  className="w-full text-center bitcoin-gradient px-6 py-3 rounded-full text-black font-bold uppercase text-xs tracking-widest orange-glow"
                 >
                   Start on GitHub
                 </a>
