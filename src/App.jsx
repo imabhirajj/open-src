@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 import RouteMeta from './components/RouteMeta';
+import Chatbot from './components/Chatbot';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             </Routes>
           </main>
           <Footer />
+          <Chatbot />
         </div>
       </div>
     </Router>
