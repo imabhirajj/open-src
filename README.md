@@ -1,16 +1,34 @@
-# React + Vite
+# 🚀 PRFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+PRFlow is a beginner-friendly platform that helps developers find their first open source contribution easily.
 
-Currently, two official plugins are available:
+## ✨ Features
+- 🔍 Find beginner-friendly GitHub issues
+- 🎯 Match issues based on your skills
+- ⚡ Curated "good first issue" repositories
+- 🧭 Step-by-step Git guide for beginners
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Live Demo
+https://prflow.vercel.app/
 
-## React Compiler
+## 🛠 Tech Stack
+- React
+- Vite
+- JavaScript
+- CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ⚠️ Current Limitations
+- Frontend-only (no backend yet)
+- Chatbot is basic
 
-## Expanding the ESLint configuration
+## 🚀 Future Improvements
+- GitHub API integration
+- Advanced filtering
+- Backend support
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🤝 Contributing
+Feel free to explore and contribute!
+
+---
+
+Built with ❤️ by Abhiraj
